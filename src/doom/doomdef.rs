@@ -8,11 +8,11 @@
 */
 
 // DOOM version
-const VERSION: i32 = 110;
+pub const VERSION: i32 = 110;
 
 // Game mode handling - identify IWAD version
 // to handle IWAD dependent animations, etc..
-enum GameMode
+pub enum GameMode
 {
     Shareware,      // DOOM 1 shareware, E1, M9
     Registered,     // DOOM 1 registered, E3, M27
@@ -22,7 +22,7 @@ enum GameMode
 }
 
 // Mission packs - might be useful for TC stuff?
-enum GameMission
+pub enum GameMission
 {
     Doom,       // DOOM 1
     Doom2,      // DOOM 2
@@ -32,7 +32,7 @@ enum GameMission
 }
 
 // Identify language to use, software localization.
-enum Language
+pub enum Language
 {
     English,
     French,
@@ -48,34 +48,34 @@ enum Language
 // The sndserver binary to be run separately has been introduced by Dave Taylor.
 // The integrated sound support is experimental, and unfinished. Default is synchronous.
 // Experimental asynchronous timer based is handled by SNDINTR.
-const SNDSERV: i32 = 1;
-/* const SNDINTR: i32 = 1; */
+pub const SNDSERV: i32 = 1;
+/* pub const SNDINTR: i32 = 1; */
 
 // This one switches between MIT SHM (no proper mouse) and XFree86 DGA (mickey sampling).
 // The original linuxdoom used SHM, which is default.
-/* const X11_DGA: i32 = 1; */
+/* pub const X11_DGA: i32 = 1; */
 
 // For resize of screen, at start of game. It will not work dynamically, see visplanes.
-const BASE_WIDTH: i32 = 320;
+pub const BASE_WIDTH: i32 = 320;
 
 // It is educational but futile to change this scaling e.g. to 2. Drawing of status bar,
 // menus, etc., is tied to the scale implied by the graphics.
-const SCREEN_MUL: i32 = 1;
-const INV_ASPECT_RATIO: f32 = 0.625;    // 0.75, ideally
+pub const SCREEN_MUL: i32 = 1;
+pub const INV_ASPECT_RATIO: f32 = 0.625;    // 0.75, ideally
 
 // Defines suck. C sucks. C++ might suck for OOP, but it sure is a better C. So there.
-const SCREEN_WIDTH: i32 = 320;
-const SCREEN_HEIGHT: i32 = 200;
+pub const SCREEN_WIDTH: i32 = 320;
+pub const SCREEN_HEIGHT: i32 = 200;
 
 // The maximum number of players, multiplayer/networking.
-const MAX_PLAYERS: i32 = 4;
+pub const MAX_PLAYERS: i32 = 4;
 
 // State updates, number of ticks / second.
-const TICK_RATE: i32 = 35;
+pub const TICK_RATE: i32 = 35;
 
 // The current state of the game: whether we are playing, gazing at the intermission
 // screen, the game final animation, or a demo.
-enum GameState
+pub enum GameState
 {
     Level,
     Intermission,
@@ -88,14 +88,14 @@ enum GameState
 */
 
 // Skill flags.
-const MTF_EASY: i32 = 1;
-const MTF_NORMAL: i32 = 2;
-const MTF_HARD: i32 = 4;
+pub const MTF_EASY: i32 = 1;
+pub const MTF_NORMAL: i32 = 2;
+pub const MTF_HARD: i32 = 4;
 
 // Deaf monsters do not react to sound.
-const MTF_AMBUSH: i32 = 8;
+pub const MTF_AMBUSH: i32 = 8;
 
-enum Skill
+pub enum Skill
 {
     Baby,
     Easy,
@@ -105,7 +105,7 @@ enum Skill
 }
 
 // Key cards.
-enum Card
+pub enum Card
 {
     BlueCard,
     YellowCard,
@@ -118,7 +118,7 @@ enum Card
 }
 
 // The defined weapons, including a marker indicating user has not changed weapon.
-enum WeaponType
+pub enum WeaponType
 {
     Fist,
     Pistol,
@@ -137,7 +137,7 @@ enum WeaponType
 }
 
 // Ammunition types defined.
-enum AmmoType
+pub enum AmmoType
 {
     Clip,   // Pistol / chaingun ammo.
     Shell,  // Shotgun / double barreled shotgun.
@@ -148,7 +148,7 @@ enum AmmoType
 }
 
 // Power up artifacts.
-enum PowerType
+pub enum PowerType
 {
     Invulnerability,
     Strength,
@@ -160,7 +160,7 @@ enum PowerType
 }
 
 // Power up durations, how many seconds till expiration, assuming TICKRATE is 35 ticks / second.
-enum PowerDuration
+pub enum PowerDuration
 {
     Tickx30 = 30 * TICK_RATE as isize,      /* INVULNTICS */
     Tickx60 = 60 * TICK_RATE as isize,      /* INVISTICS & IRONTICS */
@@ -173,41 +173,41 @@ enum PowerDuration
 */
 impl PowerDuration
 {
-    const INVULN_TICKS: PowerDuration = PowerDuration::Tickx30;
-    const INVIS_TICKS: PowerDuration = PowerDuration::Tickx60;
-    const INFRA_TICKS: PowerDuration = PowerDuration::Tickx120;
-    const IRON_TICKS: PowerDuration = PowerDuration::Tickx60;
+    pub const INVULN_TICKS: PowerDuration = PowerDuration::Tickx30;
+    pub const INVIS_TICKS: PowerDuration = PowerDuration::Tickx60;
+    pub const INFRA_TICKS: PowerDuration = PowerDuration::Tickx120;
+    pub const IRON_TICKS: PowerDuration = PowerDuration::Tickx60;
 }
 
 // DOOM keyboard definition. This is the stuff configured by Setup.exe.
 // Most key data are simple ASCII (uppercased).
-const KEY_RIGHT_ARROW: i32 = 0xAE;
-const KEY_LEFT_ARROW: i32 = 0xAC;
-const KEY_UP_ARROW: i32 = 0xAD;
-const KEY_DOWN_ARROW: i32 = 0xAF;
-const KEY_ESCAPE: i32 = 27;
-const KEY_ENTER: i32 = 13;
-const KEY_TAB: i32 = 9;
-const KEY_F1: i32 = 0x80 + 0x3B;
-const KEY_F2: i32 = 0x80 + 0x3C;
-const KEY_F3: i32 = 0x80 + 0x3D;
-const KEY_F4: i32 = 0x80 + 0x3E;
-const KEY_F5: i32 = 0x80 + 0x3F;
-const KEY_F6: i32 = 0x80 + 0x40;
-const KEY_F7: i32 = 0x80 + 0x41;
-const KEY_F8: i32 = 0x80 + 0x42;
-const KEY_F9: i32 = 0x80 + 0x43;
-const KEY_F10: i32 = 0x80 + 0x44;
-const KEY_F11: i32 = 0x80 + 0x57;
-const KEY_F12: i32 = 0x80 + 0x58;
-const KEY_BACKSPACE: i32 = 127;
-const KEY_PAUSE: i32 = 0xFF;
-const KEY_EQUALS: i32 = 0x3D;
-const KEY_MINUS: i32 = 0x2D;
-const KEY_RSHIFT: i32 = 0x80 + 0x36;
-const KEY_RCTRL: i32 = 0x80 + 0x1D;
-const KEY_RALT: i32 = 0x80 + 0x38;
-const KEY_LALT: i32 = KEY_RALT;
+pub const KEY_RIGHT_ARROW: i32 = 0xAE;
+pub const KEY_LEFT_ARROW: i32 = 0xAC;
+pub const KEY_UP_ARROW: i32 = 0xAD;
+pub const KEY_DOWN_ARROW: i32 = 0xAF;
+pub const KEY_ESCAPE: i32 = 27;
+pub const KEY_ENTER: i32 = 13;
+pub const KEY_TAB: i32 = 9;
+pub const KEY_F1: i32 = 0x80 + 0x3B;
+pub const KEY_F2: i32 = 0x80 + 0x3C;
+pub const KEY_F3: i32 = 0x80 + 0x3D;
+pub const KEY_F4: i32 = 0x80 + 0x3E;
+pub const KEY_F5: i32 = 0x80 + 0x3F;
+pub const KEY_F6: i32 = 0x80 + 0x40;
+pub const KEY_F7: i32 = 0x80 + 0x41;
+pub const KEY_F8: i32 = 0x80 + 0x42;
+pub const KEY_F9: i32 = 0x80 + 0x43;
+pub const KEY_F10: i32 = 0x80 + 0x44;
+pub const KEY_F11: i32 = 0x80 + 0x57;
+pub const KEY_F12: i32 = 0x80 + 0x58;
+pub const KEY_BACKSPACE: i32 = 127;
+pub const KEY_PAUSE: i32 = 0xFF;
+pub const KEY_EQUALS: i32 = 0x3D;
+pub const KEY_MINUS: i32 = 0x2D;
+pub const KEY_RSHIFT: i32 = 0x80 + 0x36;
+pub const KEY_RCTRL: i32 = 0x80 + 0x1D;
+pub const KEY_RALT: i32 = 0x80 + 0x38;
+pub const KEY_LALT: i32 = KEY_RALT;
 
 // DOOM basic types (boolean), and max/min values.
 /* doomtype.rs */
