@@ -8,11 +8,11 @@ use std::ffi::c_void;
 
 // Experimental stuff. To compile this as "ANSI C with classes"
 // we will need to handle the various action functions cleanly.
-type ActionFv = fn() -> ();
-type ActionFp1 = fn(_: c_void) -> ();
-type ActionFp2 = fn(_: c_void, _: c_void) -> ();
+pub type ActionFv = fn() -> ();
+pub type ActionFp1 = fn(_: c_void) -> ();
+pub type ActionFp2 = fn(_: c_void, _: c_void) -> ();
 
-union ActionF
+pub union ActionF
 {
     acp1: ActionFp1,
     acv: ActionFv,
@@ -21,10 +21,10 @@ union ActionF
 
 // Historically, "think_t" is yet another function pointer
 // to a routine to handle an actor.
-type Think = ActionF;
+pub type Think = ActionF;
 
 // Doubly linked list of actors.
-struct Thinker
+pub struct Thinker
 {
     prev: *mut Thinker,
     next: *mut Thinker,
