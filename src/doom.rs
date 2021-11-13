@@ -16,3 +16,7 @@ pub mod m_fixed;
 
 pub mod p_local;
 pub mod p_tick;
+
+pub mod sounds;
+
+pub mod tables;

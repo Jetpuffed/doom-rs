@@ -6,6 +6,8 @@
 #![allow(non_camel_case_types)]
 
 use super::d_think::*;
+use super::m_fixed::*;
+use super::sounds::*;
 
 pub enum SpriteNum
 {
